@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هوية بيتك - تسجيل الطلبات</title>
+    <title>مكاني - تسجيل الطلبات</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -11,15 +11,16 @@
             font-family: 'Cairo', sans-serif;
             background-color: #f0f2f5;
         }
-        .navy-bg { background-color: #001f3f; }
-        .navy-text { color: #001f3f; }
+        /* تعديل الألوان لتناسب البني الكموني */
+        .cumin-bg { background-color: #8C6239; }
+        .cumin-text { color: #8C6239; }
         .btn-primary {
-            background-color: #001f3f;
+            background-color: #8C6239;
             color: white;
             transition: all 0.3s ease;
         }
         .btn-primary:hover {
-            background-color: #003366;
+            background-color: #6A4A2A;
             transform: translateY(-1px);
         }
         .input-field {
@@ -30,8 +31,8 @@
             outline: none;
         }
         .input-field:focus {
-            border-color: #001f3f;
-            ring: 2px rgba(0, 31, 63, 0.2);
+            border-color: #8C6239;
+            box-shadow: 0 0 0 2px rgba(140, 98, 57, 0.2);
         }
         #loadingOverlay {
             display: none;
@@ -55,16 +56,14 @@
     </div>
 
     <div class="max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <!-- Logo Header -->
-        <div class="navy-bg p-8 text-center">
-            <img src="logo1.png" alt="هوية بيتك" class="h-24 mx-auto mb-2 object-contain" onerror="this.src='https://via.placeholder.com/200x100?text=Logo1.png'">
-            <p class="text-blue-100 text-sm">نظام إدارة ميدانية</p>
+        <div class="cumin-bg p-8 text-center">
+            <img src="logo1.png" alt="مكاني" class="h-24 mx-auto mb-2 object-contain" onerror="this.src='https://via.placeholder.com/200x100?text=Logo1.png'">
+            <p class="text-orange-100 text-sm">نظام إدارة ميدانية</p>
         </div>
 
         <form id="orderForm" class="p-6 space-y-5">
-            <!-- Region: Mandatory -->
             <div>
-                <label class="block text-sm font-bold navy-text mb-1">اختر المنطقة <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-bold cumin-text mb-1">اختر المنطقة <span class="text-red-500">*</span></label>
                 <select id="region" name="region" class="input-field" required onchange="filterNames()">
                     <option value="">-- اختر المنطقة --</option>
                     <option value="الرياض">الرياض</option>
@@ -74,39 +73,34 @@
                     <option value="حائل">حائل</option>
                     <option value="الجنوبية">المنطقة الجنوبية</option>
                     <option value="المدينة">المدينة</option>
-                    <option value="تبوك">تبوك</option>
-
-
                 </select>
             </div>
 
-            <!-- Delegate: Mandatory -->
             <div>
-                <label class="block text-sm font-bold navy-text mb-1">اسم المندوب <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-bold cumin-text mb-1">اسم المندوب <span class="text-red-500">*</span></label>
                 <select id="delegateName" name="delegateName" class="input-field" required disabled>
                     <option value="">اختر المنطقة أولاً</option>
                 </select>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <!-- Optional Fields -->
                 <div class="col-span-2 sm:col-span-1">
-                    <label class="block text-sm font-bold navy-text mb-1">رقم الطلب (اختياري)</label>
+                    <label class="block text-sm font-bold cumin-text mb-1">رقم الطلب</label>
                     <input type="text" id="orderNumber" name="orderNumber" class="input-field" placeholder="0000">
                 </div>
                 <div class="col-span-2 sm:col-span-1">
-                    <label class="block text-sm font-bold navy-text mb-1">عدد اللوحات (اختياري)</label>
+                    <label class="block text-sm font-bold cumin-text mb-1">عدد اللوحات </label>
                     <input type="number" name="platesCount" class="input-field" placeholder="1" min="1">
                 </div>
             </div>
 
             <div>
-                <label class="block text-sm font-bold navy-text mb-1">العنوان الوطني (اختياري)</label>
+                <label class="block text-sm font-bold cumin-text mb-1">العنوان الوطني </label>
                 <textarea name="nationalAddress" class="input-field" rows="2" placeholder="أدخل تفاصيل العنوان"></textarea>
             </div>
 
             <div>
-                <label class="block text-sm font-bold navy-text mb-1">صور الطلب (اختياري)</label>
+                <label class="block text-sm font-bold cumin-text mb-1">صور الطلب </label>
                 <input type="file" id="photos" name="photos" class="input-field bg-gray-50" multiple accept="image/*">
                 <p class="text-[10px] text-gray-400 mt-1">يمكنك ترك الصور فارغة أو رفع أكثر من صورة</p>
             </div>
@@ -141,8 +135,8 @@
             { name: "علي عبد الرحمن", region: "الشرقية" }
         ];
 
-        // 🟢 ضع هنا الرابط الذي حصلت عليه من Deploy -> Web App
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-SZ5Hhfq9TaOmZh0-y805woldquEv_vE410S9UOwLvrX0fvaGSVwauefbxjNe01F83A/exec"; 
+        // تم التعديل إلى الرابط الجديد المطلوب
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKZnRb5vMfiBZH1hZDmxDdxWyWErQS1lue_m8N4Gxn9_EzwfGJrbZ8QvSKyXMIB_mQ/exec"; 
 
         function filterNames() {
             const region = document.getElementById('region').value;
@@ -187,7 +181,6 @@
                 const nationalAddressVal = formData.get('nationalAddress') || "غير متوفر";
                 const platesCountVal = formData.get('platesCount') || "0";
 
-                // تحويل الصور لـ Base64 فقط إذا وجدت
                 const photoPromises = Array.from(files).map((file, index) => {
                     return new Promise((resolve, reject) => {
                         const reader = new FileReader();
@@ -246,7 +239,3 @@
     </script>
 </body>
 </html>
-
-
-
-
